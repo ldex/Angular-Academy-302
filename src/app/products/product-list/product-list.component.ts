@@ -1,4 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { Product } from 'src/app/models/product.interface';
 import { ProductService } from 'src/app/services/product.service';
@@ -11,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   title: string = 'Products';
-  products: Product[];
+  //products: Product[];
   products$: Observable<Product[]>;
   selectedProduct: Product;
   errorMessage: string;
@@ -38,10 +39,12 @@ export class ProductListComponent implements OnInit {
 
   onSelect(product: Product): void {
     this.selectedProduct = product;
+    this.router.navigateByUrl('/products/' + product.id);
   }
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {
 
   }
